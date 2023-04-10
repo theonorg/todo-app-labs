@@ -105,4 +105,12 @@ app.MapDelete("/todos/{id}", async (TodoDbContext db, int id) =>
     return Results.Ok(todo);
 });
 
+app.MapGet("/hostname", () =>
+{
+    var hostname = System.Net.Dns.GetHostName();
+    app.Logger.LogInformation("Getting hostname: {Hostname}", hostname);
+    return Results.Ok(hostname);
+})
+.WithName("Hostname");
+
 app.Run();
