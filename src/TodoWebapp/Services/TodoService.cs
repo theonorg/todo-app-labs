@@ -55,5 +55,6 @@ public class TodoService : ITodoService
     private void Log(HttpResponseMessage response)
     {
         _logger.LogInformation($"Call to {response.RequestMessage?.RequestUri} ended with status code {response.StatusCode}");
+        _logger.LogInformation($"Response content: {response.Content.ReadAsStringAsync().Result}");
     }
 }
