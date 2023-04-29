@@ -15,7 +15,7 @@ public class TodoService : ITodoService
     public async Task<Todo?> AddTodoAsync(Todo todo)
     {
         _logger.LogInformation($"Adding todo: {todo}");
-        var response = await _client.PostAsJsonAsync("", todo);
+        var response = await _client.PostAsJsonAsync("/", todo);
         Log(response);
         return await response.Content.ReadFromJsonAsync<Todo>();
     }
