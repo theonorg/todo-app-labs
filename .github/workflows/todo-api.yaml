@@ -20,7 +20,8 @@ env:
 
 permissions:
   id-token: write
-  contents: write
+  contents: read
+  checks:  write
 
 jobs:
   build:
