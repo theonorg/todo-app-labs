@@ -53,11 +53,13 @@ app.MapFallback(() => Results.Redirect("/swagger"));
 
 app.MapGet("/todos", async (TodoDbContext db) =>
 {
+    app.Logger.LogInformation("Getting todos");
     return await db.Todos.ToListAsync();
 });
 
 app.MapGet("/todos/{id}", async (TodoDbContext db, int id) =>
 {
+    app.Logger.LogInformation("Getting todo with id {Id}", id);
     return await db.Todos.FindAsync(id) switch
     {
         Todo todo => Results.Ok(todo),
@@ -67,8 +69,11 @@ app.MapGet("/todos/{id}", async (TodoDbContext db, int id) =>
 
 app.MapPost("/todos", async (TodoDbContext db, Todo todo) =>
 {
+    app.Logger.LogInformation("Creating todo");
     await db.Todos.AddAsync(todo);
+    app.Logger.LogInformation("Saving todo with id {Id}", todo.Id);
     await db.SaveChangesAsync();
+    app.Logger.LogInformation("Todo with id {Id} saved", todo.Id);
 
     return Results.Created($"/todos/{todo.Id}", todo);
 });
