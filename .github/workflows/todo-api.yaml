@@ -6,13 +6,13 @@ on:
     paths:
       - 'src/TodoAPI/**'
       - 'src/TodoAPI.Tests/**'
-      - '.github/workflows/todo-api.yml'
+      - '.github/workflows/todo-api.yaml'
   pull_request:
     branches: [ main ]
     paths:
       - 'src/TodoAPI/**'
       - 'src/TodoAPI.Tests/**'
-      - '.github/workflows/todo-api.yml'
+      - '.github/workflows/todo-api.yaml'
 
 env:
   AZURE_WEBAPP_NAME: "tbernardo-todoapp-prd-api"
