@@ -8,8 +8,10 @@ namespace TodoWebapp.Controllers;
 public class TodoController : Controller
 {
     private readonly ITodoService _todoService;
-    public TodoController(ITodoService todoService)
+    private readonly ILogger<TodoController> _logger;
+    public TodoController(ITodoService todoService, ILogger<TodoController> logger)
     {
+        _logger = logger;
         _todoService = todoService;
     }
 
@@ -22,6 +24,7 @@ public class TodoController : Controller
     [ActionName("Create")]
     public IActionResult Create()
     {
+        _logger.LogInformation("Creating new todo");
         return View();
     }
 
@@ -30,10 +33,13 @@ public class TodoController : Controller
     [ValidateAntiForgeryToken]
     public async Task<ActionResult> CreateAsync([Bind("Title,IsComplete")] Todo todo)
     {
+        _logger.LogInformation($"Creating new todo: {todo}");
         if (ModelState.IsValid)
         {
+            _logger.LogInformation($"Adding new todo: Model Valid");
             todo.IsComplete = false;
             await _todoService.AddTodoAsync(todo);
+            _logger.LogInformation($"Added new todo: {todo}");
             return RedirectToAction("Index");
         }
 
