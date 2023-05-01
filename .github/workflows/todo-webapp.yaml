@@ -62,12 +62,12 @@ jobs:
     if: github.event_name != 'pull_request'
     environment: 
       name: stg
-      url: "https://${{ steps.stg-deploy.outputs.webapp-url }}"
+      url: ${{ steps.stg-deploy.outputs.webapp-url }}
     runs-on: ubuntu-latest
     needs: build
 
     outputs:
-      webapp-url: "https://${{ steps.stg-deploy.outputs.webapp-url }}"
+      webapp-url: ${{ steps.stg-deploy.outputs.webapp-url }}
 
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
